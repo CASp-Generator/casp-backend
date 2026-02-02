@@ -14,8 +14,8 @@ from auth import get_current_user, UserBase, login_for_access_token
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "http://localhost:5173",      # your local Vite/React app
+    "http://127.0.0.1:5173",
     "https://heartfelt-begonia-e4cb3e.netlify.app",
 ]
 
