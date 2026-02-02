@@ -1,15 +1,11 @@
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
 
 from database import engine, SessionLocal
 from models import Base, User
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
 
 def init():
+    # Create all tables
     Base.metadata.create_all(bind=engine)
 
     db: Session = SessionLocal()
@@ -19,7 +15,8 @@ def init():
         if not existing:
             user = User(
                 email=email,
-                password=get_password_hash("testpassword123"),
+                # TEMP: plain-text password to avoid bcrypt issues on Render
+                password="testpassword123",
                 is_admin=True,
                 has_active_subscription=True,
             )
@@ -27,6 +24,7 @@ def init():
             db.commit()
     finally:
         db.close()
+
 
 if __name__ == "__main__":
     init()
