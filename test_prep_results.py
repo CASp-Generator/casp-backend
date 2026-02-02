@@ -1,245 +1,99 @@
-from fastapi import APIRouter, Depends
+from typing import List
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from typing import List, Literal, Optional
-from .auth import get_current_user, UserBase
-from .models import SessionLocal, Question
 
-router = APIRouter()
+from auth import get_current_user, UserBase
+from models import SessionLocal, Question
+
+router = APIRouter(prefix="/api/test-prep-results", tags=["test_prep_results"])
 
 
-class OpenBookAnswer(BaseModel):
+class AnswerItem(BaseModel):
     question_id: int
-    choice: str
+    selected_answer: str
 
 
-class ClosedBookAnswer(BaseModel):
-    question_id: int
-    choice: str
+class GradeRequest(BaseModel):
+    mode: str
+    answers: List[AnswerItem]
 
 
-class MixedAnswer(BaseModel):
-    question_id: int
-    kind: Literal["open_book", "closed_book"]
-    choice: str
+class GradedQuestion(BaseModel):
+    id: int
+    text: str
+    correct_answer: str
+    selected_answer: str
+    is_correct: bool
+    qtype: str | None = None
+    difficulty: str | None = None
+    reference_document: str | None = None
+    reference_section: str | None = None
+    explanation: str | None = None
 
 
-class BaseResult(BaseModel):
-    correct: int
+class GradeResponse(BaseModel):
+    mode: str
     total_questions: int
-    percent: float
-    raw_percent: Optional[float] = None
-    # For Test Prep, this is your Psychometric Mastery Score (0–100).
-    psychometric_score: Optional[float] = None
+    correct_count: int
+    score_percent: float
+    questions: List[GradedQuestion]
 
 
-class OpenBookWrongAnswer(BaseModel):
-    question_id: int
-    text: str = "Placeholder question text"
-    user_choice: str
-    correct_choice: str = "A"
-    explanation: str = "Detailed explanation will go here later."
-
-
-class ClosedBookWrongAnswer(BaseModel):
-    question_id: int
-    text: str = "Placeholder question text"
-    user_choice: str
-    correct_choice: str = "A"
-    explanation: str = "Detailed explanation will go here later."
-
-
-class MixedWrongAnswer(BaseModel):
-    question_id: int
-    kind: Literal["open_book", "closed_book"]
-    text: str = "Placeholder question text"
-    user_choice: str
-    correct_choice: str = "A"
-    explanation: Optional[str] = "Detailed explanation will go here later."
-
-
-class OpenBookResult(BaseResult):
-    wrong_answers: List[OpenBookWrongAnswer]
-
-
-class ClosedBookResult(BaseResult):
-    wrong_answers: List[ClosedBookWrongAnswer]
-
-
-class MixedResult(BaseResult):
-    wrong_answers: List[MixedWrongAnswer]
-
-
-def _simple_percent(total: int, correct: int) -> float:
-    if total <= 0:
-        return 0.0
-    return (correct / total) * 100.0
-
-
-DOMAIN_WEIGHTS = {
-    "cbc_scoping": 0.40,
-    "housing": 0.20,
-    "federal_regs": 0.1333,
-    "casp_statutes": 0.1333,
-    "identifying_standards": 0.1333,
-}
-
-
-def _compute_closed_book_mastery(db: SessionLocal, answers: List[ClosedBookAnswer]) -> float:
-    if not answers:
-        return 0.0
-
-    q_ids = [a.question_id for a in answers]
-    questions = (
-        db.query(Question)
-        .filter(Question.id.in_(q_ids))
-        .all()
-    )
-    by_id = {q.id: q for q in questions}
-
-    domain_correct: dict[str, int] = {}
-    domain_total: dict[str, int] = {}
-
-    for a in answers:
-        q = by_id.get(a.question_id)
-        if not q:
-            continue
-        domain = getattr(q, "domain", None)
-        if not domain:
-            continue
-
-        domain_total[domain] = domain_total.get(domain, 0) + 1
-        if a.choice == q.correct_answer:
-            domain_correct[domain] = domain_correct.get(domain, 0) + 1
-
-    if not domain_total:
-        return 0.0
-
-    weighted_sum = 0.0
-    total_weight = 0.0
-
-    for domain, total in domain_total.items():
-        correct = domain_correct.get(domain, 0)
-        domain_percent = _simple_percent(total, correct)
-        w = DOMAIN_WEIGHTS.get(domain, 0.0)
-        if w <= 0.0:
-            continue
-        weighted_sum += domain_percent * w
-        total_weight += w
-
-    if total_weight <= 0.0:
-        return 0.0
-
-    return weighted_sum / total_weight
-
-
-@router.post("/api/open-book/test-prep-results", response_model=OpenBookResult)
-def open_book_results(
-    answers: List[OpenBookAnswer],
-    user: UserBase = Depends(get_current_user),
-):
-    total = len(answers)
-    # Stub grading for now; later you can plug in real logic.
-    correct = total // 2
-    percent = _simple_percent(total, correct)
-
-    wrong_answers: List[OpenBookWrongAnswer] = []
-    for a in answers:
-        wrong_answers.append(
-            OpenBookWrongAnswer(
-                question_id=a.question_id,
-                user_choice=a.choice,
-            )
-        )
-
-    # Test Prep: Psychometric Mastery Score present (simple 0–100 mirror for now).
-    return OpenBookResult(
-        correct=correct,
-        total_questions=total,
-        percent=percent,
-        raw_percent=None,
-        psychometric_score=percent,
-        wrong_answers=wrong_answers,
-    )
-
-
-@router.post("/api/closed-book/test-prep-results", response_model=ClosedBookResult)
-def closed_book_results(
-    answers: List[ClosedBookAnswer],
-    user: UserBase = Depends(get_current_user),
-):
-    total = len(answers)
+@router.post("", response_model=GradeResponse)
+def grade_test_prep_results(payload: GradeRequest, user: UserBase = Depends(get_current_user)):
     db = SessionLocal()
     try:
-        q_ids = [a.question_id for a in answers]
+        question_ids = [a.question_id for a in payload.answers]
+        if not question_ids:
+            raise HTTPException(status_code=400, detail="No answers submitted")
+
         questions = (
             db.query(Question)
-            .filter(Question.id.in_(q_ids))
+            .filter(Question.id.in_(question_ids))
             .all()
         )
-        by_id = {q.id: q for q in questions}
 
-        correct = 0
-        wrong_answers: List[ClosedBookWrongAnswer] = []
+        question_map = {q.id: q for q in questions}
 
-        for a in answers:
-            q = by_id.get(a.question_id)
+        graded_items: List[GradedQuestion] = []
+        correct_count = 0
+
+        for ans in payload.answers:
+            q = question_map.get(ans.question_id)
             if not q:
                 continue
-            if a.choice == q.correct_answer:
-                correct += 1
-            else:
-                wrong_answers.append(
-                    ClosedBookWrongAnswer(
-                        question_id=a.question_id,
-                        text=q.text,
-                        user_choice=a.choice,
-                        correct_choice=q.correct_answer,
-                        explanation=getattr(q, "source_note", "Detailed explanation will go here later."),
-                    )
-                )
 
-        percent = _simple_percent(total, correct)
-        mastery = _compute_closed_book_mastery(db, answers)
+            is_correct = (ans.selected_answer == q.correct_answer)
+            if is_correct:
+                correct_count += 1
+
+            graded_items.append(
+                GradedQuestion(
+                    id=q.id,
+                    text=q.text,
+                    correct_answer=q.correct_answer,
+                    selected_answer=ans.selected_answer,
+                    is_correct=is_correct,
+                    qtype=(q.qtype.value if getattr(q, "qtype", None) is not None else None),
+                    difficulty=(q.difficulty.value if getattr(q, "difficulty", None) is not None else None),
+                    reference_document=getattr(q, "reference_document", None),
+                    reference_section=getattr(q, "reference_section", None),
+                    explanation=getattr(q, "explanation", None),
+                )
+            )
+
+        total_questions = len(graded_items)
+        if total_questions == 0:
+            raise HTTPException(status_code=400, detail="No valid questions found for grading")
+
+        score_percent = round((correct_count / total_questions) * 100, 1)
+
+        return GradeResponse(
+            mode=payload.mode,
+            total_questions=total_questions,
+            correct_count=correct_count,
+            score_percent=score_percent,
+            questions=graded_items,
+        )
     finally:
         db.close()
-
-    # Test Prep closed-book: Psychometric Mastery Score (domain-weighted).
-    return ClosedBookResult(
-        correct=correct,
-        total_questions=total,
-        percent=percent,
-        raw_percent=None,
-        psychometric_score=mastery,
-        wrong_answers=wrong_answers,
-    )
-
-
-@router.post("/api/mixed/test-prep-results", response_model=MixedResult)
-def mixed_results(
-    answers: List[MixedAnswer],
-    user: UserBase = Depends(get_current_user),
-):
-    total = len(answers)
-    # Stub grading.
-    correct = total // 2
-    percent = _simple_percent(total, correct)
-
-    wrong_answers: List[MixedWrongAnswer] = []
-    for a in answers:
-        wrong_answers.append(
-            MixedWrongAnswer(
-                question_id=a.question_id,
-                kind=a.kind,
-                user_choice=a.choice,
-            )
-        )
-
-    # Test Prep mixed: Psychometric Mastery Score present (simple 0–100 mirror for now).
-    return MixedResult(
-        correct=correct,
-        total_questions=total,
-        percent=percent,
-        raw_percent=None,
-        psychometric_score=percent,
-        wrong_answers=wrong_answers,
-    )

@@ -6,9 +6,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from pydantic import BaseModel
 
-from .models import SessionLocal, User
+from models import SessionLocal, User
 
-# Very simple JWT setup for local dev
 SECRET_KEY = "change-this-dev-secret-later"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
@@ -30,10 +29,6 @@ class TokenData(BaseModel):
 
 
 def authenticate_user(email: str, password: str) -> Optional[User]:
-    """
-    Plain-text auth against the users table.
-    This matches the seed in seed_users.py: admin123 / user123.
-    """
     db = SessionLocal()
     try:
         user = db.query(User).filter(User.email == email).first()
@@ -54,11 +49,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 
 
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    # OAuth2PasswordRequestForm sends "username" field for email
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=401, detail="Incorrect email or password.")
-
     access_token = create_access_token(data={"sub": str(user.id)})
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -68,7 +61,6 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> UserBase:
         status_code=401,
         detail="Could not validate credentials.",
     )
-
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         sub = payload.get("sub")

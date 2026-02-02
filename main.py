@@ -7,9 +7,9 @@ import json
 import random
 from pathlib import Path
 
-from .models import SessionLocal, Question
-from . import test_prep_results
-from .auth import get_current_user, UserBase, login_for_access_token
+from models import SessionLocal, Question
+import test_prep_results
+from auth import get_current_user, UserBase, login_for_access_token
 
 app = FastAPI()
 
@@ -143,14 +143,13 @@ def build_closed_test_prep_exam(count: int) -> tuple[int, List[ExamQuestion]]:
     Closed-book Test Prep exam from authored JSON bank.
     Loads from closed_book_questions.json and samples up to `count` questions.
     """
-    json_path = Path(__file__).resolve().parent.parent / "closed_book_questions.json"
+    json_path = Path(__file__).resolve().parent / "closed_book_questions.json"
     if not json_path.exists():
         raise HTTPException(status_code=500, detail="Closed-book question bank not found")
 
     with json_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Filter to difficulty == "test_prep"
     pool = [q for q in data if q.get("difficulty") == "test_prep"]
 
     if not pool:
@@ -159,7 +158,6 @@ def build_closed_test_prep_exam(count: int) -> tuple[int, List[ExamQuestion]]:
             detail="No closed-book test prep questions available in JSON bank",
         )
 
-    # Shuffle and sample up to requested count
     random.shuffle(pool)
     selected = pool[:count]
 
@@ -182,7 +180,6 @@ def build_closed_test_prep_exam(count: int) -> tuple[int, List[ExamQuestion]]:
 
 @app.post("/exam", response_model=ExamResponse)
 def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)):
-    # Mixed mode: still uses DB (open + closed)
     if payload.mode == "mixed":
         effective_count, result_questions = build_mixed_exam(
             total_count=payload.count,
@@ -194,7 +191,6 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
             questions=result_questions,
         )
 
-    # Clamp counts
     if payload.mode == "open":
         min_q, max_q = 1, 40
     else:
@@ -202,7 +198,6 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
 
     clamped_count = clamp(payload.count, min_q, max_q)
 
-    # Closed-book Test Prep: use JSON bank
     if payload.mode == "closed" and payload.difficulty == "test_prep":
         effective_count, result_questions = build_closed_test_prep_exam(clamped_count)
         return ExamResponse(
@@ -211,7 +206,6 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
             questions=result_questions,
         )
 
-    # All other cases: use DB questions table
     db = SessionLocal()
     try:
         base_query = db.query(Question)
