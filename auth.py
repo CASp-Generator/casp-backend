@@ -34,6 +34,7 @@ def authenticate_user(email: str, password: str) -> Optional[User]:
         user = db.query(User).filter(User.email == email).first()
         if not user:
             return None
+        # TEMP: plain-text password check to match init_db seed
         if user.password != password:
             return None
         return user
