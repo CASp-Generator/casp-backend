@@ -1,0 +1,597 @@
+[
+  {
+    "id": 1,
+    "topic": "ada_titles_employment",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title governs employment practices?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "A",
+    "explanation": "ADA Title I covers employment practices for private employers with 15 or more employees, state and local governments, employment agencies, and labor unions.",
+    "reference": "42 U.S.C. §12111–12117",
+    "psychometric_score": null
+  },
+  {
+    "id": 2,
+    "topic": "ada_titles_state_local",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title applies to state and local government programs and services?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "B",
+    "explanation": "ADA Title II applies to state and local governments, requiring that all programs, services, and activities be accessible to people with disabilities.",
+    "reference": "42 U.S.C. §12131–12165",
+    "psychometric_score": null
+  },
+  {
+    "id": 3,
+    "topic": "ada_titles_public_accommodations",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title governs public accommodations such as restaurants, hotels, and retail stores?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "C",
+    "explanation": "ADA Title III covers private places of public accommodation, including restaurants, hotels, theaters, retail stores, and professional offices.",
+    "reference": "42 U.S.C. §12181–12189",
+    "psychometric_score": null
+  },
+  {
+    "id": 4,
+    "topic": "ada_titles_telecommunications",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title addresses telecommunications relay services for individuals with hearing or speech disabilities?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "D",
+    "explanation": "ADA Title IV addresses telecommunications relay services and requires telephone and internet companies to provide relay services for individuals with hearing or speech disabilities.",
+    "reference": "47 U.S.C. §225",
+    "psychometric_score": null
+  },
+  {
+    "id": 5,
+    "topic": "ada_titles_miscellaneous",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title contains miscellaneous provisions, including anti-retaliation protections?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title V"
+    },
+    "correctchoice": "D",
+    "explanation": "ADA Title V contains miscellaneous provisions, including protections against retaliation and coercion for individuals asserting their rights under the ADA.",
+    "reference": "42 U.S.C. §12203",
+    "psychometric_score": null
+  },
+  {
+    "id": 6,
+    "topic": "cbc_application",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which part of the California Building Code addresses accessibility provisions for public accommodations, commercial facilities, and public housing?",
+    "choices": {
+      "A": "CBC Chapter 11A",
+      "B": "CBC Chapter 11B",
+      "C": "CBC Chapter 10",
+      "D": "CBC Chapter 3"
+    },
+    "correctchoice": "B",
+    "explanation": "CBC Chapter 11B applies to accessibility in public accommodations, commercial facilities, and public housing, aligning with the ADA.",
+    "reference": "CBC Chapter 11B",
+    "psychometric_score": null
+  },
+  {
+    "id": 7,
+    "topic": "cbc_application_residential",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which CBC chapter applies to the design and construction of accessible dwelling units in privately funded multifamily housing?",
+    "choices": {
+      "A": "Chapter 11A",
+      "B": "Chapter 11B",
+      "C": "Chapter 3",
+      "D": "Chapter 10"
+    },
+    "correctchoice": "A",
+    "explanation": "CBC Chapter 11A applies to privately funded multifamily dwelling units, covering accessibility features in housing developments.",
+    "reference": "CBC Chapter 11A",
+    "psychometric_score": null
+  },
+  {
+    "id": 8,
+    "topic": "chbc_scope",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which code provides alternative accessibility provisions for qualified historic buildings in California?",
+    "choices": {
+      "A": "CHBC",
+      "B": "CBC Chapter 11A",
+      "C": "CBC Chapter 11B",
+      "D": "UFAS"
+    },
+    "correctchoice": "A",
+    "explanation": "The California Historical Building Code (CHBC) provides alternative methods for achieving accessibility in qualified historic buildings while preserving their historic character.",
+    "reference": "CHBC §8-101 et seq.",
+    "psychometric_score": null
+  },
+  {
+    "id": 9,
+    "topic": "fha_scope_multifamily",
+    "domain": "housing",
+    "difficulty": "test_prep",
+    "text": "The FHA design and construction requirements apply to which residential buildings?",
+    "choices": {
+      "A": "Single-family homes only",
+      "B": "All residential buildings",
+      "C": "New multifamily buildings with 4+ units and first occupancy after 1991",
+      "D": "Hotels and motels only"
+    },
+    "correctchoice": "C",
+    "explanation": "FHA design and construction requirements apply to covered multifamily dwellings with 4 or more units, first occupied after March 13, 1991.",
+    "reference": "42 U.S.C. §3604(f)(3)(C)",
+    "psychometric_score": null
+  },
+  {
+    "id": 10,
+    "topic": "ada_vs_fha_application",
+    "domain": "housing",
+    "difficulty": "test_prep",
+    "text": "A privately-owned apartment complex leasing office open to the public is governed by which accessibility regimes?",
+    "choices": {
+      "A": "ADA only",
+      "B": "FHA only",
+      "C": "Both ADA Title III and FHA",
+      "D": "Neither ADA nor FHA"
+    },
+    "correctchoice": "C",
+    "explanation": "The leasing office is a place of public accommodation (ADA Title III) while the dwelling units are covered by FHA.",
+    "reference": "42 U.S.C. §12181; 42 U.S.C. §3604(f)",
+    "psychometric_score": null
+  },
+  {
+    "id": 11,
+    "topic": "cbc_housing_trigger",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which California statute triggers accessibility in public accommodations and commercial facilities regardless of cost?",
+    "choices": {
+      "A": "Health & Safety Code §19955",
+      "B": "Civil Code §54",
+      "C": "Government Code §4450",
+      "D": "Vehicle Code §22511.8"
+    },
+    "correctchoice": "A",
+    "explanation": "Health & Safety Code §19955 requires accessibility in public accommodations and commercial facilities when constructed or altered in California.",
+    "reference": "Cal. Health & Safety Code §19955",
+    "psychometric_score": null
+  },
+  {
+    "id": 12,
+    "topic": "cbc_11b_alterations",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Under CBC 11B, which work is considered an alteration?",
+    "choices": {
+      "A": "Routine maintenance",
+      "B": "Cosmetic painting only",
+      "C": "Reconfiguring walls and doorways",
+      "D": "Minor repairs with no impact on usability"
+    },
+    "correctchoice": "C",
+    "explanation": "Reconfiguring walls and doorways is an alteration under CBC 11B because it affects usability of the facility.",
+    "reference": "CBC §202; §11B-202.3",
+    "psychometric_score": null
+  },
+  {
+    "id": 13,
+    "topic": "cbc_path_of_travel_trigger",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "When does an alteration project in California trigger path of travel upgrades under CBC 11B-202.4?",
+    "choices": {
+      "A": "Any paint job",
+      "B": "When the project cost exceeds the valuation threshold and affects a primary function area",
+      "C": "Only when new construction is added",
+      "D": "Never, path of travel is exempt"
+    },
+    "correctchoice": "B",
+    "explanation": "CBC 11B-202.4 requires path of travel upgrades when alterations affect a primary function area and the project cost exceeds the valuation threshold.",
+    "reference": "CBC §11B-202.4",
+    "psychometric_score": null
+  },
+  {
+    "id": 14,
+    "topic": "cbc_disproportionality",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Under CBC 11B, what is the maximum percentage of construction costs that must be spent on path of travel upgrades when disproportionality applies?",
+    "choices": {
+      "A": "10%",
+      "B": "20%",
+      "C": "30%",
+      "D": "50%"
+    },
+    "correctchoice": "B",
+    "explanation": "CBC 11B-202.4 requires up to 20% of the project cost be spent on path of travel upgrades when disproportionality applies.",
+    "reference": "CBC §11B-202.4, Disproportionate Cost",
+    "psychometric_score": null
+  },
+  {
+    "id": 15,
+    "topic": "cbc_barrier_removal",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which concept describes required removal of architectural barriers in existing facilities under ADA Title III?",
+    "choices": {
+      "A": "New construction",
+      "B": "Alteration trigger",
+      "C": "Readily achievable barrier removal",
+      "D": "Grandfathering"
+    },
+    "correctchoice": "C",
+    "explanation": "ADA Title III requires readily achievable barrier removal in existing facilities, even without alterations.",
+    "reference": "42 U.S.C. §12182(b)(2)(A)(iv)",
+    "psychometric_score": null
+  },
+  {
+    "id": 16,
+    "topic": "cbc_accessible_route_slope",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "What is the maximum running slope for an accessible route that is not considered a ramp under CBC/ADA standards?",
+    "choices": {
+      "A": "1:20",
+      "B": "1:12",
+      "C": "1:16",
+      "D": "1:10"
+    },
+    "correctchoice": "A",
+    "explanation": "Slopes steeper than 1:20 must be treated as ramps with additional requirements; 1:20 or less is an accessible route.",
+    "reference": "ADA Standards §403.3; CBC 11B-403.3",
+    "psychometric_score": null
+  },
+  {
+    "id": 17,
+    "topic": "cbc_ramp_slope_max",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "What is the maximum running slope for new construction ramps under ADA/CBC?",
+    "choices": {
+      "A": "1:16",
+      "B": "1:12",
+      "C": "1:10",
+      "D": "1:8"
+    },
+    "correctchoice": "B",
+    "explanation": "The maximum running slope for new construction ramps is 1:12; steeper slopes are not allowed except in limited existing site constraints.",
+    "reference": "ADA Standards §405.2; CBC 11B-405.2",
+    "psychometric_score": null
+  },
+  {
+    "id": 18,
+    "topic": "cbc_door_clear_width",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "What is the minimum clear width required at a swinging door in an accessible route?",
+    "choices": {
+      "A": "30 inches",
+      "B": "32 inches",
+      "C": "34 inches",
+      "D": "36 inches"
+    },
+    "correctchoice": "B",
+    "explanation": "Accessible doors must provide at least 32 inches of clear width measured from the face of the door to the stop with the door open 90 degrees.",
+    "reference": "ADA Standards §404.2.3; CBC 11B-404.2.3",
+    "psychometric_score": null
+  },
+  {
+    "id": 19,
+    "topic": "cbc_door_hardware",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Door hardware operable parts on accessible doors must be mounted between what heights above the finished floor?",
+    "choices": {
+      "A": "28 inches and 40 inches",
+      "B": "30 inches and 44 inches",
+      "C": "34 inches and 48 inches",
+      "D": "40 inches and 54 inches"
+    },
+    "correctchoice": "C",
+    "explanation": "Operable parts of door hardware must be between 34 inches and 48 inches above the finished floor.",
+    "reference": "ADA Standards §404.2.7; CBC 11B-404.2.7",
+    "psychometric_score": null
+  },
+  {
+    "id": 20,
+    "topic": "cbc_parking_access_aisle_width",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "What is the minimum width required for an access aisle serving a standard (non-van) accessible parking space under CBC?",
+    "choices": {
+      "A": "36 inches",
+      "B": "48 inches",
+      "C": "60 inches",
+      "D": "96 inches"
+    },
+    "correctchoice": "C",
+    "explanation": "Standard accessible parking spaces require an adjacent access aisle at least 60 inches wide.",
+    "reference": "CBC 11B-502.3.2",
+    "psychometric_score": null
+  },
+  {
+    "id": 21,
+    "topic": "cbc_parking_van_space",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "What is the minimum width required for a van-accessible parking space under CBC?",
+    "choices": {
+      "A": "96 inches with 60-inch aisle",
+      "B": "132 inches with 60-inch aisle or 96 inches with 96-inch aisle",
+      "C": "120 inches with 60-inch aisle",
+      "D": "108 inches with 72-inch aisle"
+    },
+    "correctchoice": "B",
+    "explanation": "Van spaces may be 132 inches wide with a 60-inch aisle or 96 inches wide with a 96-inch aisle.",
+    "reference": "CBC 11B-502.2",
+    "psychometric_score": null
+  },
+  {
+    "id": 22,
+    "topic": "cbc_parking_signage",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "In California, what is the required minimum height to the bottom of an accessible parking identification sign mounted on a post?",
+    "choices": {
+      "A": "48 inches",
+      "B": "60 inches",
+      "C": "72 inches",
+      "D": "80 inches"
+    },
+    "correctchoice": "C",
+    "explanation": "California requires the bottom of accessible parking signs mounted on a post to be at least 72 inches above the finished grade.",
+    "reference": "CBC 11B-502.6",
+    "psychometric_score": null
+  },
+  {
+    "id": 23,
+    "topic": "cbc_parking_tow_away_sign",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which statement about tow-away signage for accessible parking in California is TRUE?",
+    "choices": {
+      "A": "Tow-away signs are optional",
+      "B": "Tow-away signs are required and must include the telephone number of the law enforcement agency",
+      "C": "Tow-away signs are only required for van spaces",
+      "D": "Tow-away signs are required only in state facilities"
+    },
+    "correctchoice": "B",
+    "explanation": "California requires tow-away signage with specific language including the telephone number of the local law enforcement agency.",
+    "reference": "Cal. Vehicle Code §22511.8",
+    "psychometric_score": null
+  },
+  {
+    "id": 24,
+    "topic": "aba_post_office",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "A federal post office altered in 2023 must comply with which law?",
+    "choices": {
+      "A": "ADA Title II",
+      "B": "ADA Title III",
+      "C": "ABA",
+      "D": "FHA"
+    },
+    "correctchoice": "C",
+    "explanation": "Post office facilities designed, constructed, or altered for the federal government are covered by the Architectural Barriers Act rather than the ADA or FHA.",
+    "reference": "ABA Standards F101.1",
+    "psychometric_score": null
+  },
+  {
+    "id": 25,
+    "topic": "fha_non_elevator_coverage",
+    "domain": "housing",
+    "difficulty": "test_prep",
+    "text": "Under FHA, which units are covered in non-elevator multifamily buildings with 4 or more units?",
+    "choices": {
+      "A": "All units",
+      "B": "Ground floor units",
+      "C": "Top floor only",
+      "D": "None"
+    },
+    "correctchoice": "B",
+    "explanation": "For non-elevator buildings with four or more units, the FHA design and construction requirements apply to all ground-floor dwelling units.",
+    "reference": "42 U.S.C. §3604(f)(3)(C); HUD FHAG",
+    "psychometric_score": null
+  },
+  {
+    "id": 26,
+    "topic": "ada_title_iii_auxiliary_aids",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which law requires auxiliary aids in public accommodations unless doing so would fundamentally alter the goods or services?",
+    "choices": {
+      "A": "ADA Title I",
+      "B": "ADA Title II",
+      "C": "ADA Title III",
+      "D": "ADA Title IV"
+    },
+    "correctchoice": "C",
+    "explanation": "ADA Title III requires public accommodations to provide auxiliary aids and services unless doing so would fundamentally alter the nature of the goods or services offered.",
+    "reference": "42 U.S.C. §12182(b)(2)(A)(iii)",
+    "psychometric_score": null
+  },
+  {
+    "id": 27,
+    "topic": "dual_trigger_homeless_shelter",
+    "domain": "identifying_standards",
+    "difficulty": "test_prep",
+    "text": "A county builds new homeless shelters with both county and HUD funds. Which regimes apply?",
+    "choices": {
+      "A": "ADA Title II and FHA",
+      "B": "FHA and Section 504",
+      "C": "ADA Title III and UFAS",
+      "D": "ABA and UFAS"
+    },
+    "correctchoice": "B",
+    "explanation": "Because the project is covered multifamily housing and receives federal financial assistance, FHA applies based on occupancy and Section 504 with UFAS applies due to federal funding.",
+    "reference": "42 U.S.C. §3604; 24 C.F.R. pt. 8; UFAS",
+    "psychometric_score": null
+  },
+  {
+    "id": 28,
+    "topic": "ada_title_v_retaliation",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which law prohibits retaliation against individuals asserting disability rights?",
+    "choices": {
+      "A": "ADA Title I",
+      "B": "ADA Title II",
+      "C": "ADA Title III",
+      "D": "ADA Title V"
+    },
+    "correctchoice": "D",
+    "explanation": "ADA Title V contains the anti-retaliation and anti-coercion provisions protecting individuals who assert their rights under the ADA.",
+    "reference": "42 U.S.C. §12203",
+    "psychometric_score": null
+  },
+  {
+    "id": 29,
+    "topic": "gov_code_4450_scope",
+    "domain": "casp_statutes",
+    "difficulty": "test_prep",
+    "text": "Which statute governs accessibility requirements in buildings built with state, county, or municipal funds in California?",
+    "choices": {
+      "A": "Civil Code §52",
+      "B": "Government Code §4450",
+      "C": "Health and Safety Code §19955",
+      "D": "Vehicle Code §22511.8"
+    },
+    "correctchoice": "B",
+    "explanation": "Government Code §4450 requires that buildings, structures, sidewalks, curbs, and related facilities built with state, county, or municipal funds be accessible.",
+    "reference": "Cal. Gov. Code §4450(a)",
+    "psychometric_score": null
+  },
+  {
+    "id": 30,
+    "topic": "private_university_title_iii",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "A private university leasing office in California is governed by which ADA title?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "C",
+    "explanation": "A private university leasing office open to the public is a place of public accommodation and therefore falls under ADA Title III.",
+    "reference": "42 U.S.C. §12182(a)",
+    "psychometric_score": null
+  },
+  {
+    "id": 31,
+    "topic": "fha_controls_height",
+    "domain": "housing",
+    "difficulty": "test_prep",
+    "text": "FHA requires environmental controls such as thermostats to be mounted at or below what height?",
+    "choices": {
+      "A": "42 inches",
+      "B": "44 inches",
+      "C": "48 inches",
+      "D": "52 inches"
+    },
+    "correctchoice": "C",
+    "explanation": "Under the FHA design and construction requirements, environmental controls in covered dwelling units must generally be within a maximum of 48 inches above the finished floor to be reachable.",
+    "reference": "HUD FHAG, Reach Ranges",
+    "psychometric_score": null
+  },
+  {
+    "id": 32,
+    "topic": "504_communication_standard",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which standard governs communication feature unit scoping in HUD-assisted housing?",
+    "choices": {
+      "A": "ADA Standards",
+      "B": "UFAS",
+      "C": "ABA Standards",
+      "D": "CBC 11A"
+    },
+    "correctchoice": "B",
+    "explanation": "HUD’s Section 504 regulations reference UFAS for scoping of communication feature units, including the 2 percent minimum for communication-accessible units.",
+    "reference": "UFAS §4.1.4(2); 24 C.F.R. §8.32(a)",
+    "psychometric_score": null
+  },
+  {
+    "id": 33,
+    "topic": "aba_agencies",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "For ABA facilities, which agencies issue enforceable standards?",
+    "choices": {
+      "A": "DOJ and DOT",
+      "B": "EEOC and HUD",
+      "C": "GSA, DOD, USPS, HUD",
+      "D": "HUD and DOE"
+    },
+    "correctchoice": "C",
+    "explanation": "Under the Architectural Barriers Act, the General Services Administration, Department of Defense, U.S. Postal Service, and HUD issue the enforceable accessibility standards for covered facilities.",
+    "reference": "ABA Standards F101.1",
+    "psychometric_score": null
+  },
+  {
+    "id": 34,
+    "topic": "ada_titles_employment_repeat",
+    "domain": "federal_regs",
+    "difficulty": "test_prep",
+    "text": "Which ADA title governs employment practices?",
+    "choices": {
+      "A": "Title I",
+      "B": "Title II",
+      "C": "Title III",
+      "D": "Title IV"
+    },
+    "correctchoice": "A",
+    "explanation": "ADA Title I is the employment title and prohibits discrimination in all aspects of employment for qualified individuals with disabilities.",
+    "reference": "42 U.S.C. §12112(a)",
+    "psychometric_score": null
+  },
+  {
+    "id": 35,
+    "topic": "chbc_historic_equivalent",
+    "domain": "cbc_scoping",
+    "difficulty": "test_prep",
+    "text": "Which California code permits equivalent facilitation for historic dwellings where strict compliance would threaten historic significance?",
+    "choices": {
+      "A": "11A",
+      "B": "11B",
+      "C": "CHBC",
+      "D": "UFAS"
+    },
+    "correctchoice": "C",
+    "explanation": "The California Historical Building Code allows equivalent facilitation methods where full compliance would threaten the historical significance of a qualified building.",
+    "reference": "CHBC §8-602",
+    "psychometric_score": null
+  }
+]

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>TestPrep CBC 11B Trainer</title>
+  <style>
+    body { font-family: sans-serif; max-width: 720px; margin: 20px auto; }
+    .hidden { display: none; }
+    .correct { color: green; }
+    .incorrect { color: red; }
+  </style>
+</head>
+<body>
+  <h1>TestPrep CBC 11B Trainer</h1>
+
+  <section id="start-section">
+    <label for="difficulty-select">Difficulty:</label>
+    <select id="difficulty-select">
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+      <option value="TestPrep">TestPrep</option>
+    </select>
+
+    <button id="start-btn">Start Test</button>
+    <button id="restart-btn" disabled>Restart Test</button>
+    <button id="summary-btn" disabled>Show Summary</button>
+    <button id="review-btn" disabled>Review Answers</button>
+
+    <div id="session-info"></div>
+  </section>
+
+  <hr />
+
+  <section id="question-section" class="hidden">
+    <div id="question-text"></div>
+    <input id="answer-input" type="text" placeholder="Your answer" />
+    <button id="submit-btn">Submit & Next</button>
+
+    <div id="feedback"></div>
+    <div id="progress"></div>
+  </section>
+
+  <section id="summary-section" class="hidden">
+    <h2>Summary</h2>
+    <div id="summary-content"></div>
+  </section>
+
+  <section id="review-section" class="hidden">
+    <h2>Review</h2>
+    <div id="review-content"></div>
+  </section>
+
+  <script>
+    let currentTestId = null;
+    let currentQuestionId = null;
+
+    const startBtn = document.getElementById("start-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const summaryBtn = document.getElementById("summary-btn");
+    const reviewBtn = document.getElementById("review-btn");
+
+    const difficultySelect = document.getElementById("difficulty-select");
+    const sessionInfo = document.getElementById("session-info");
+
+    const questionSection = document.getElementById("question-section");
+    const questionText = document.getElementById("question-text");
+    const answerInput = document.getElementById("answer-input");
+    const submitBtn = document.getElementById("submit-btn");
+    const feedbackDiv = document.getElementById("feedback");
+    const progressDiv = document.getElementById("progress");
+
+    const summarySection = document.getElementById("summary-section");
+    const summaryContent = document.getElementById("summary-content");
+
+    const reviewSection = document.getElementById("review-section");
+    const reviewContent = document.getElementById("review-content");
+
+    async function startTest() {
+      const difficulty = difficultySelect.value;
+
+      const resp = await fetch("/tests/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ difficulty }),
+      });
+
+      if (!resp.ok) {
+        alert("Failed to start test");
+        return;
+      }
+
+      const data = await resp.json();
+      currentTestId = data.test_id;
+
+      sessionInfo.textContent =
+        `Test ID: ${data.test_id} | Difficulty: ${data.difficulty} ` +
+        `| exam_mode=${data.exam_mode}, show_feedback=${data.show_feedback}`;
+
+      restartBtn.disabled = false;
+      summaryBtn.disabled = false;
+      reviewBtn.disabled = false;
+
+      feedbackDiv.textContent = "";
+      feedbackDiv.className = "";
+      summarySection.classList.add("hidden");
+      reviewSection.classList.add("hidden");
+
+      await fetchNextQuestion(null, null);
+    }
+
+    async function fetchNextQuestion(questionId, given) {
+      if (!currentTestId) return;
+
+      const resp = await fetch("/tests/next", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          test_id: currentTestId,
+          question_id: questionId,
+          given: given,
+        }),
+      });
+
+      if (!resp.ok) {
+        alert("Failed to fetch next question");
+        return;
+      }
+
+      const data = await resp.json();
+
+      feedbackDiv.textContent = "";
+      feedbackDiv.className = "";
+
+      if (data.last_is_correct !== null && data.last_is_correct !== undefined) {
+        if (data.last_is_correct) {
+          feedbackDiv.textContent = "Correct!";
+          feedbackDiv.classList.add("correct");
+        } else {
+          feedbackDiv.textContent = "Incorrect.";
+          feedbackDiv.classList.add("incorrect");
+          if (data.last_correct_answer) {
+            feedbackDiv.textContent += " Correct answer: " + data.last_correct_answer;
+          }
+        }
+      }
+
+      progressDiv.textContent =
+        `Answered: ${data.num_answered}, ` +
+        `Correct: ${data.num_correct}, ` +
+        `Incorrect: ${data.num_incorrect}`;
+
+      if (data.done || !data.question) {
+        questionSection.classList.add("hidden");
+        questionText.textContent = "No more questions.";
+        currentQuestionId = null;
+        return;
+      }
+
+      questionSection.classList.remove("hidden");
+      currentQuestionId = data.question.id;
+      questionText.textContent = data.question.text;
+      answerInput.value = "";
+      answerInput.focus();
+    }
+
+    async function submitAnswer() {
+      if (!currentTestId || currentQuestionId === null) return;
+      const given = answerInput.value;
+      await fetchNextQuestion(currentQuestionId, given);
+    }
+
+    async function showSummary() {
+      if (!currentTestId) return;
+
+      const resp = await fetch(`/tests/summary/${currentTestId}`);
+      if (!resp.ok) {
+        alert("Failed to fetch summary");
+        return;
+      }
+
+      const data = await resp.json();
+      summarySection.classList.remove("hidden");
+
+      let html = "";
+      html += `<p>Difficulty: ${data.difficulty}</p>`;
+      html += `<p>Answered: ${data.num_answered}</p>`;
+      html += `<p>Correct: ${data.num_correct}</p>`;
+      html += `<p>Incorrect: ${data.num_incorrect}</p>`;
+      html += `<p>Accuracy: ${(data.accuracy * 100).toFixed(1)}%</p>`;
+
+      if (data.test_prep_score !== null) {
+        html += `<p>Estimated TestPrep score: ${data.test_prep_score}</p>`;
+      }
+
+      summaryContent.innerHTML = html;
+    }
+
+    async function showReview() {
+      if (!currentTestId) return;
+
+      const resp = await fetch(`/tests/review/${currentTestId}`);
+      if (!resp.ok) {
+        alert("Failed to fetch review");
+        return;
+      }
+
+      const data = await resp.json();
+      reviewSection.classList.remove("hidden");
+
+      if (!data.answers || data.answers.length === 0) {
+        reviewContent.innerHTML = "<p>No answers yet.</p>";
+        return;
+      }
+
+      let html = "<ol>";
+      for (const ans of data.answers) {
+        html += "<li>";
+        html += `<p><strong>Q:</strong> ${ans.text}</p>`;
+        html += `<p><strong>Your answer:</strong> ${ans.given}</p>`;
+        html += `<p><strong>Correct answer:</strong> ${ans.correct_answer}</p>`;
+        html += `<p><strong>Result:</strong> ${ans.is_correct ? "Correct" : "Incorrect"}</p>`;
+        html += "</li>";
+      }
+      html += "</ol>";
+      reviewContent.innerHTML = html;
+    }
+
+    startBtn.addEventListener("click", startTest);
+    restartBtn.addEventListener("click", startTest);
+    submitBtn.addEventListener("click", submitAnswer);
+    answerInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitAnswer();
+    });
+    summaryBtn.addEventListener("click", showSummary);
+    reviewBtn.addEventListener("click", showReview);
+  </script>
+</body>
+</html>

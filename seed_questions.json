@@ -1,0 +1,49 @@
+import json
+import sys
+
+from sqlalchemy.orm import Session
+
+from app.database import SessionLocal, engine
+from app.models import Base, Question, DifficultyBand
+
+# Make sure tables exist
+Base.metadata.create_all(bind=engine)
+
+
+def load_questions_from_json(path: str):
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+
+def seed_questions(path: str):
+    questions_data = load_questions_from_json(path)
+    db: Session = SessionLocal()
+
+    try:
+        for item in questions_data:
+            q = Question(
+                topic=item["topic"],
+                difficulty_band=DifficultyBand(item["difficulty_band"]),
+                stem=item["stem"],
+                option_a=item["option_a"],
+                option_b=item["option_b"],
+                option_c=item["option_c"],
+                option_d=item["option_d"],
+                correct_option=item["correct_option"]
+            )
+            db.add(q)
+
+        db.commit()
+        print(f"Inserted {len(questions_data)} questions from {path}")
+    finally:
+        db.close()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python seed_questions.py <path_to_json>")
+        sys.exit(1)
+
+    json_path = sys.argv[1]
+    seed_questions(json_path)

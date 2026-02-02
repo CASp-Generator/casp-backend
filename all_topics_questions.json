@@ -1,0 +1,231 @@
+[
+  {
+    "topic": "Parking",
+    "difficulty_band": "Beginner",
+    "stem": "Parking at general hospitals is scoped at what percentage of total spaces?",
+    "option_a": "5%",
+    "option_b": "10%",
+    "option_c": "20%",
+    "option_d": "25%",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Parking",
+    "difficulty_band": "Intermediate",
+    "stem": "A rehabilitation clinic with 85 total parking spaces must provide how many accessible spaces?",
+    "option_a": "8",
+    "option_b": "9",
+    "option_c": "17",
+    "option_d": "20",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Parking",
+    "difficulty_band": "Intermediate",
+    "stem": "What minimum number of van-accessible spaces are required when a clinic provides 12 total accessible spaces?",
+    "option_a": "1",
+    "option_b": "2",
+    "option_c": "3",
+    "option_d": "4",
+    "correct_option": "B"
+  },
+
+  {
+    "topic": "Routes",
+    "difficulty_band": "Beginner",
+    "stem": "Minimum clear width for accessible routes:",
+    "option_a": "30 in",
+    "option_b": "32 in",
+    "option_c": "34 in",
+    "option_d": "36 in",
+    "correct_option": "D"
+  },
+  {
+    "topic": "Routes",
+    "difficulty_band": "Intermediate",
+    "stem": "At a passing space on an accessible route, what minimum width must be provided for a T-shaped turning space?",
+    "option_a": "36 in arms, 36 in stem",
+    "option_b": "36 in arms, 48 in stem",
+    "option_c": "48 in arms, 36 in stem",
+    "option_d": "60 in arms, 36 in stem",
+    "correct_option": "A"
+  },
+
+  {
+    "topic": "Ramps",
+    "difficulty_band": "Beginner",
+    "stem": "Maximum running slope for a ramp serving as an accessible route:",
+    "option_a": "1:20",
+    "option_b": "1:16",
+    "option_c": "1:12",
+    "option_d": "1:10",
+    "correct_option": "C"
+  },
+  {
+    "topic": "Ramps",
+    "difficulty_band": "Intermediate",
+    "stem": "A ramp rises 30 inches total. What is the minimum number of intermediate landings required?",
+    "option_a": "None",
+    "option_b": "One intermediate landing",
+    "option_c": "Two intermediate landings",
+    "option_d": "Three intermediate landings",
+    "correct_option": "B"
+  },
+
+  {
+    "topic": "Doors",
+    "difficulty_band": "Beginner",
+    "stem": "At a swinging door, what is the minimum clear width required when the door is open 90 degrees?",
+    "option_a": "30 in",
+    "option_b": "32 in",
+    "option_c": "34 in",
+    "option_d": "36 in",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Doors",
+    "difficulty_band": "Intermediate",
+    "stem": "What is the maximum allowable opening force for interior hinged doors in most accessible applications, excluding fire doors?",
+    "option_a": "3 lbf",
+    "option_b": "5 lbf",
+    "option_c": "8 lbf",
+    "option_d": "10 lbf",
+    "correct_option": "B"
+  },
+
+  {
+    "topic": "Restrooms",
+    "difficulty_band": "Beginner",
+    "stem": "Typical accessible water closet seat height range above finished floor:",
+    "option_a": "15–17 in",
+    "option_b": "16–18 in",
+    "option_c": "17–19 in",
+    "option_d": "18–20 in",
+    "correct_option": "C"
+  },
+  {
+    "topic": "Restrooms",
+    "difficulty_band": "Intermediate",
+    "stem": "In an accessible toilet compartment, what is the minimum depth of the compartment for a wall-hung water closet?",
+    "option_a": "56 in",
+    "option_b": "58 in",
+    "option_c": "60 in",
+    "option_d": "62 in",
+    "correct_option": "A"
+  },
+
+  {
+    "topic": "Plumbing",
+    "difficulty_band": "Intermediate",
+    "stem": "Water closet seat height range for accessible fixtures serving adults:",
+    "option_a": "16–17 in",
+    "option_b": "17–19 in",
+    "option_c": "18–20 in",
+    "option_d": "19–21 in",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Plumbing",
+    "difficulty_band": "Beginner",
+    "stem": "What is the maximum rim height for an accessible lavatory above finished floor, excluding vessels?",
+    "option_a": "30 in",
+    "option_b": "32 in",
+    "option_c": "34 in",
+    "option_d": "36 in",
+    "correct_option": "C"
+  },
+
+  {
+    "topic": "Signage",
+    "difficulty_band": "Beginner",
+    "stem": "Tactile characters on identification signs are typically required to be mounted with the baseline at what height range above finished floor?",
+    "option_a": "40–48 in",
+    "option_b": "48–60 in",
+    "option_c": "48–60 in to the centerline",
+    "option_d": "60–72 in",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Signage",
+    "difficulty_band": "Intermediate",
+    "stem": "What is the required character height range for tactile characters on room identification signs in most interior applications?",
+    "option_a": "1/2–5/8 in",
+    "option_b": "5/8–3/4 in",
+    "option_c": "5/8–2 in",
+    "option_d": "1–2 in",
+    "correct_option": "C"
+  },
+
+  {
+    "topic": "Housing",
+    "difficulty_band": "Intermediate",
+    "stem": "In multifamily housing, which term describes units that must be designed to be readily convertible to full accessibility?",
+    "option_a": "Accessible units",
+    "option_b": "Adaptable units",
+    "option_c": "Convertible units",
+    "option_d": "Special occupancy units",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Housing",
+    "difficulty_band": "Beginner",
+    "stem": "Which federal law commonly governs accessibility in multifamily housing projects with federal financial assistance?",
+    "option_a": "Fair Housing Act",
+    "option_b": "ADA Title II",
+    "option_c": "ADA Title III",
+    "option_d": "Section 504 of the Rehabilitation Act",
+    "correct_option": "D"
+  },
+
+  {
+    "topic": "DetectableWarnings",
+    "difficulty_band": "Beginner",
+    "stem": "Detectable warning surfaces consist primarily of which feature?",
+    "option_a": "Smooth troweled concrete",
+    "option_b": "Raised bars",
+    "option_c": "Truncated domes",
+    "option_d": "Exposed aggregate",
+    "correct_option": "C"
+  },
+  {
+    "topic": "DetectableWarnings",
+    "difficulty_band": "Intermediate",
+    "stem": "At curb ramps, detectable warnings are typically required to extend how far in the direction of travel?",
+    "option_a": "12 in",
+    "option_b": "18 in",
+    "option_c": "24 in",
+    "option_d": "36 in",
+    "correct_option": "C"
+  },
+
+  {
+    "topic": "Parking",
+    "difficulty_band": "Advanced",
+    "stem": "A large hospital parking facility provides 850 total spaces in multiple structures. How many accessible spaces are required across the entire facility?",
+    "option_a": "17",
+    "option_b": "26",
+    "option_c": "43",
+    "option_d": "45",
+    "correct_option": "C"
+  },
+  {
+    "topic": "Routes",
+    "difficulty_band": "Advanced",
+    "stem": "An accessible route runs 180 feet with multiple grade changes. To avoid ramp classification, what is the maximum continuous run length you can provide at a slope steeper than 1:20 but not steeper than 1:12 before a landing is required?",
+    "option_a": "30 ft",
+    "option_b": "40 ft",
+    "option_c": "50 ft",
+    "option_d": "60 ft",
+    "correct_option": "A"
+  },
+  {
+    "topic": "Restrooms",
+    "difficulty_band": "Advanced",
+    "stem": "In a multi-user toilet room with six water closets and two urinals, how many accessible toilet compartments are typically required, including ambulatory compartments, when governed by both federal and California standards?",
+    "option_a": "1 ambulatory only",
+    "option_b": "1 standard + 1 ambulatory",
+    "option_c": "2 standard only",
+    "option_d": "2 ambulatory + 1 standard",
+    "correct_option": "B"
+  }
+]

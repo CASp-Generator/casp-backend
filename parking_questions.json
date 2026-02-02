@@ -1,0 +1,52 @@
+[
+  {
+    "topic": "Parking",
+    "difficulty_band": "Intermediate",
+    "stem": "A rehabilitation clinic with 85 total parking spaces must provide how many accessible spaces?",
+    "option_a": "8",
+    "option_b": "9",
+    "option_c": "17",
+    "option_d": "20",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Parking",
+    "difficulty_band": "Beginner",
+    "stem": "Parking at general hospitals is scoped at what percentage of total spaces?",
+    "option_a": "5%",
+    "option_b": "10%",
+    "option_c": "20%",
+    "option_d": "25%",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Parking",
+    "difficulty_band": "Intermediate",
+    "stem": "What minimum number of van-accessible spaces are required when a clinic provides 12 total accessible spaces?",
+    "option_a": "1",
+    "option_b": "2",
+    "option_c": "3",
+    "option_d": "4",
+    "correct_option": "B"
+  },
+  {
+    "topic": "Routes",
+    "difficulty_band": "Beginner",
+    "stem": "Minimum clear width for accessible routes:",
+    "option_a": "30 in",
+    "option_b": "32 in",
+    "option_c": "34 in",
+    "option_d": "36 in",
+    "correct_option": "D"
+  },
+  {
+    "topic": "Plumbing",
+    "difficulty_band": "Intermediate",
+    "stem": "Water closet seat height range:",
+    "option_a": "16--17 in",
+    "option_b": "17--19 in",
+    "option_c": "18--20 in",
+    "option_d": "19--21 in",
+    "correct_option": "C"
+  }
+]
