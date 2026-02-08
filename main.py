@@ -8,7 +8,7 @@ import json
 import random
 from pathlib import Path
 
-from models import SessionLocal, Question
+from models import SessionLocal, Question, Base, engine
 import test_prep_results
 from auth import get_current_user, UserBase, login_for_access_token
 
@@ -20,7 +20,8 @@ app = FastAPI()
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://casp-backend-3.onrender.com",
+    # You will add your real frontend URL here later, e.g.:
+    # "https://your-site-name.netlify.app",
 ]
 
 app.add_middleware(
@@ -34,6 +35,14 @@ app.add_middleware(
 app.include_router(test_prep_results.router)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+
+# -----------------------------------------------------------------------------
+# DB startup: ensure tables (including users) exist
+# -----------------------------------------------------------------------------
+@app.on_event("startup")
+def on_startup() -> None:
+    # Create all tables if they do not exist (users, questions, etc.)
+    Base.metadata.create_all(bind=engine)
 
 # -----------------------------------------------------------------------------
 # Models for requests / responses
