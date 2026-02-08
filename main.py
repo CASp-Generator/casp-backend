@@ -1,3 +1,4 @@
+# C:\Users\Jas\Documents\CASp Generator\Open Book\casp_backend_clean\main.py
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -11,12 +12,14 @@ from models import SessionLocal, Question
 import test_prep_results
 from auth import get_current_user, UserBase, login_for_access_token
 
+# -----------------------------------------------------------------------------
+# FastAPI app and CORS
+# -----------------------------------------------------------------------------
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",      # your local Vite/React app
+    "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://heartfelt-begonia-e4cb3e.netlify.app",
 ]
 
 app.add_middleware(
@@ -31,7 +34,9 @@ app.include_router(test_prep_results.router)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
-
+# -----------------------------------------------------------------------------
+# Models for requests / responses
+# -----------------------------------------------------------------------------
 class ExamRequest(BaseModel):
     mode: Literal["open", "closed", "mixed"]
     count: int
@@ -65,6 +70,9 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 
+# -----------------------------------------------------------------------------
+# Helpers
+# -----------------------------------------------------------------------------
 def clamp(n: int, minimum: int, maximum: int) -> int:
     if n < minimum:
         return minimum
@@ -99,6 +107,7 @@ def build_mixed_exam(total_count: int, difficulty: str | None = None):
         open_count = round(total_count * 0.4)
         closed_count = total_count - open_count
 
+        # ensure at least one of each when total_count >= 2
         if total_count >= 2:
             if open_count == 0:
                 open_count = 1
@@ -112,6 +121,7 @@ def build_mixed_exam(total_count: int, difficulty: str | None = None):
 
         open_query = base_open
         closed_query = base_closed
+
         if difficulty is not None:
             open_query = open_query.filter(Question.difficulty == difficulty)
             closed_query = closed_query.filter(Question.difficulty == difficulty)
@@ -119,6 +129,7 @@ def build_mixed_exam(total_count: int, difficulty: str | None = None):
         open_questions = open_query.limit(open_count).all()
         closed_questions = closed_query.limit(closed_count).all()
 
+        # fallback if difficulty-specific pool is empty
         if not open_questions and not closed_questions and difficulty is not None:
             open_questions = base_open.limit(open_count).all()
             closed_questions = base_closed.limit(closed_count).all()
@@ -133,7 +144,6 @@ def build_mixed_exam(total_count: int, difficulty: str | None = None):
             )
 
         result_questions = [_map_question(q) for q in questions]
-
         return effective_count, result_questions
     finally:
         db.close()
@@ -146,13 +156,14 @@ def build_closed_test_prep_exam(count: int) -> tuple[int, List[ExamQuestion]]:
     """
     json_path = Path(__file__).resolve().parent / "closed_book_questions.json"
     if not json_path.exists():
-        raise HTTPException(status_code=500, detail="Closed-book question bank not found")
+        raise HTTPException(
+            status_code=500, detail="Closed-book question bank not found"
+        )
 
     with json_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
 
     pool = [q for q in data if q.get("difficulty") == "test_prep"]
-
     if not pool:
         raise HTTPException(
             status_code=400,
@@ -179,8 +190,12 @@ def build_closed_test_prep_exam(count: int) -> tuple[int, List[ExamQuestion]]:
     return len(questions), questions
 
 
+# -----------------------------------------------------------------------------
+# Routes
+# -----------------------------------------------------------------------------
 @app.post("/exam", response_model=ExamResponse)
 def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)):
+    # Mixed mode (open + closed)
     if payload.mode == "mixed":
         effective_count, result_questions = build_mixed_exam(
             total_count=payload.count,
@@ -192,6 +207,7 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
             questions=result_questions,
         )
 
+    # Clamp for open/closed standalone
     if payload.mode == "open":
         min_q, max_q = 1, 40
     else:
@@ -199,6 +215,7 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
 
     clamped_count = clamp(payload.count, min_q, max_q)
 
+    # Closed-book test prep from JSON bank
     if payload.mode == "closed" and payload.difficulty == "test_prep":
         effective_count, result_questions = build_closed_test_prep_exam(clamped_count)
         return ExamResponse(
@@ -207,6 +224,7 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
             questions=result_questions,
         )
 
+    # All other cases use DB questions table
     db = SessionLocal()
     try:
         base_query = db.query(Question)
@@ -217,11 +235,13 @@ def create_exam(payload: ExamRequest, user: UserBase = Depends(get_current_user)
             base_query = base_query.filter(Question.qtype == "open")
 
         query = base_query
+
         if payload.difficulty is not None:
             query = query.filter(Question.difficulty == payload.difficulty)
 
         questions = query.limit(clamped_count).all()
 
+        # fallback if no questions for that difficulty
         if not questions and payload.difficulty is not None:
             questions = base_query.limit(clamped_count).all()
     finally:
